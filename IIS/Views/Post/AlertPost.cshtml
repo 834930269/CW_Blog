@@ -1,0 +1,54 @@
+﻿@using CW_Blog.Models
+@{
+    ViewBag.Title = "修改文章";
+    Post pt=Model;
+}
+
+<h2>编辑文章</h2>
+
+<form method="post" class="form" role="form" action="/post/alertpost/@pt.PostId">
+    <div class="form-group ">
+        <label class="control-label" for="body">写点什么吧~</label>
+        <div class="flask-pagedown"><textarea class="form-control flask-pagedown-input OwO-textarea" id="flask-pagedown-body" name="body">@pt.Body</textarea></div>
+        <div title="OwO" class="OwO" style="color:#000"></div>
+        <script>
+            var OwO_demo = new OwO({
+                logo: 'OωO表情',
+                container: document.getElementsByClassName('OwO')[0],
+                target: document.getElementsByClassName('OwO-textarea')[0],
+                api: '/OwO/OwO.min.json',
+                position: 'down',
+                width: '100%',
+                maxHeight: '250px'
+            });</script>
+        <div class="flask-pagedown-preview" id="flask-pagedown-body-preview"></div>
+        <script type="text/javascript">
+            f = function () {
+                if (typeof flask_pagedown_converter === "undefined")
+                    flask_pagedown_converter = Markdown.getSanitizingConverter().makeHtml;
+                var textarea = document.getElementById("flask-pagedown-body");
+                var preview = document.getElementById("flask-pagedown-body-preview");
+                textarea.onkeyup = function () { preview.innerHTML = flask_pagedown_converter(textarea.value); }
+                textarea.onkeyup.call(textarea);
+            }
+            if (document.readyState === 'complete')
+                f();
+            else if (window.addEventListener)
+                window.addEventListener("load", f, false);
+            else if (window.attachEvent)
+                window.attachEvent("onload", f);
+            else
+                f();
+        </script>
+    </div>
+    <input class="btn btn-default" id="submit" name="submit" type="submit" value="写完了">
+</form>
+
+
+@section scripts{
+<script type="text/javascript">
+    $("#footer").removeClass("navbar-fixed-bottom");
+    $("#replace").show();
+    $("#footer2").hide();
+</script>
+}

@@ -1,0 +1,26 @@
+﻿@using CW_Blog.Models;
+@{
+    ViewBag.Title = "修改个人信息";
+    User user = (User)Session["Current_user"];
+}
+
+<h2>修改个人信息</h2>
+
+<form action="/Home/edit_profile" method="post" >
+    <fieldset>
+        <div class="form-group">
+            <label>昵称</label>
+            <input type="text" id="nickname" name="nickname" class="form-control" value="@user.NickName" required>
+        </div>
+        <div class="form-group">
+            <label>居住地</label>
+            <input type="text" id="location" name="location" class="form-control" value="@user.Location" required>
+        </div>
+        <div class="form-group">
+            <label>关于</label>
+            <textarea id="about_me" name="about_me" class="form-control" required>@user.About_Me</textarea>
+        </div>
+        <button id="Submit" type="submit" class="btn btn-primary">提交</button>
+    </fieldset>
+</form>
+

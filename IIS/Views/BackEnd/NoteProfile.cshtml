@@ -1,0 +1,12 @@
+﻿@using CW_Blog.Models
+@using CW_Blog.Controllers
+@{
+    Layout = null;
+    PostViewModel<Note> pn = Model;
+    User us = OP.GetCurrentUser();
+}
+
+<div id="memos" class="container" style="color:#333;">
+    @Html.Partial("_Notes", pn.Items, new ViewDataDictionary())
+    @Html.Partial("_macro", pn.PagingInfo)
+</div>

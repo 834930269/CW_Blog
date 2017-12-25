@@ -1,0 +1,55 @@
+﻿@using CW_Blog.Models;
+@{
+    PagingInfo pagi = Model;
+}
+<div class="pagination">
+    <ul class="pagination" id="macro">
+        @if (pagi.HasPrev)
+        {
+            <li>
+                <a href="@pagi.Url@(pagi.PageIndex-1)">
+                    &laquo;
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="disabled">
+                <a href="#">
+                    &laquo;
+                </a>
+            </li>
+        }
+        @for (int i = 1; i <= pagi.PageCount; ++i)
+        {
+            if (@pagi.PageIndex == @i)
+            {
+                <li class="active">
+                    <a href="#">@i</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@pagi.Url@i">@i</a>
+                </li>
+            }
+        }
+        @if (pagi.HasNext)
+        {
+            <li>
+                <a href="@pagi.Url@(pagi.PageIndex+1)">
+                    &raquo;
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="disabled">
+                <a href="#">
+                    &raquo;
+                </a>
+            </li>
+        }
+    </ul>
+</div>

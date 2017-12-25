@@ -1,0 +1,10 @@
+﻿@using CW_Blog.Models;
+@using CW_Blog.Controllers;
+@{
+    ViewBag.Title = "主页";
+    User us = OP.GetCurrentUser();
+    PostViewModel<Post> po = Model;
+}
+
+<h1>欢迎</h1>
+@Html.Partial("_Post", po)

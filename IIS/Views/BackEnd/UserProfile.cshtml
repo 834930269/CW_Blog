@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CW_Blog.Models.User>
+@{
+    Layout = null;
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Role.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NickName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.About_Me)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Member_Since)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Last_Seen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gravatar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Confirm)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.Name)
+            </td>
+            <td>
+                <a href="/home/user_profile/@item.UserId">@item.NickName</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.About_Me)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member_Since)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Last_Seen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gravatar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeStamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Confirm)
+            </td>
+        </tr>
+    }
+
+</table>

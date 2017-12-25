@@ -1,0 +1,72 @@
+﻿@using CW_Blog.Models
+@using CW_Blog.Controllers
+@{
+    User us = OP.GetCurrentUser();
+    List<Comment> comment = Model;
+}
+<ul class="comments">
+    @if(comment!=null){
+    foreach (Comment ct in comment) {
+        @*提前加载User*@
+    User user = ct.user;
+    <li class="comment">
+        <div class="comment-thumbnail">
+            <a href="/home/user_profile/@user.UserId">
+                <img class="img-rounded profile-thumbnail" src="@user.Gravatar" width="40" height="40">
+            </a>
+        </div>
+        <div class="comment-content">
+            <div class="comment-date">@ct.TimeStamp</div>
+            <div class="comment-author"><a href="/home/user_profile/@user.UserId">@user.NickName</a></div>
+            <div class="comment-body">
+                @if(@ct.Disabled){
+                <p><i>该评论因为一些原因被管理员/协管员锁定了,请联系管理员进行解锁.</i></p>
+                }else{
+                @Html.Raw(ct.Body_Html)
+                }
+            </div>
+            <div class="comment-footer">
+                @if (us != null)
+                {
+                    if (us.UserId == ct.CommentId)
+                    {
+                        <a href="/comment/altercomment/@ct.CommentId">
+                            <span class="label label-primary">编辑评论</span>
+                        </a>
+                    }
+                    else if (@us.Is_administrator())
+                    {
+                        <a href="/comment/altercomment/@ct.CommentId">
+                            <span class="label label-danger">编辑评论[管理员]</span>
+                        </a>
+                    }
+                    else if (@us.Is_Moderator())
+                    {
+                        <a href="/comment/altercomment/@ct.CommentId">
+                            <span class="label label-info">编辑评论[协管员]</span>
+                        </a>
+                    }
+                    if (us.Is_administrator() || us.Is_Moderator())
+                    {
+                        if (ct.Disabled)
+                        {
+                            <label class="label-danger">评论状态: 隐藏</label><br />
+                                <a href="/comment/Disable/@ct.CommentId?rnd=@OP.GetTimeStamp()">
+                                    <span class="btn btn-success">显示评论[协管员以上]</span>
+                                </a>
+                        }
+                        else
+                        {
+                            <label class="label-success">评论状态: 显示</label><br />
+                            <a href="/comment/Disable/@ct.CommentId?rnd=@OP.GetTimeStamp()">
+                                <span class="btn btn-danger">隐藏评论[协管员以上]</span>
+                            </a>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </li>
+    }
+    }
+</ul>

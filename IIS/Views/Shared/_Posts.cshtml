@@ -1,0 +1,55 @@
+﻿@using CW_Blog.Models
+@using CW_Blog.Controllers
+@{
+    List<Post> po = Model;
+    User us = OP.GetCurrentUser();
+    int zero = 0;
+}
+
+    <ul class="posts">
+        @if(po!=null){ 
+        foreach (Post pt in po)
+        {
+            <li class="post">
+                <div class="profile-thumbnail">
+                    <a href="/home/User_Profile/@pt.user.UserId">
+                        <img class="img-rounded profile-thumbnail" src="@pt.user.Gravatar" width="40" height="40" />
+                    </a>
+                </div>
+                <div class="post-content">
+                    <div class="post-date">@pt.TimeStamp</div>
+                    <div class="post-author">
+                        <a href="/home/User_Profile/@pt.user.UserId">
+                            @pt.user.NickName
+                        </a>
+                    </div>
+                    <div class="post-body">@Html.Raw(@pt.Body_Html)</div>
+                    <div class="post-footer">
+                        @if (us != null)
+                        {
+                            if (us.UserId == pt.UserId)
+                            {
+                                <a href="/post/alertpost/@pt.PostId">
+                                    <span class="label label-primary">编辑</span>
+                                </a>
+                            }
+                            else if (@us.Is_administrator())
+                            {
+                                <a href="/post/alertpost/@pt.PostId">
+                                    <span class="label label-danger">编辑[管理员]</span>
+                                </a>
+                            }
+                        }
+                        <a href="/post/showpostbyid/@pt.PostId">
+                            <span class="label label-default">原文坐标</span>
+                        </a>
+                        <a href="/post/showpostbyid/@pt.PostId">
+                            <span class="label label-primary">@if(@pt.Comments!=null){@pt.Comments.Count()}else{ @zero } 评论</span>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        }
+        }
+    </ul>
+

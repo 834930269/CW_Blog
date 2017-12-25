@@ -1,0 +1,263 @@
+﻿@using CW_Blog.Controllers
+@using CW_Blog.Models
+@{
+    var us = (User)Session["Current_user"];
+    int NIL = 0;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Scripts/jquery-3.2.1.min.js")
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PEIsPEP0EfnL2YlnoTNMKzpmTpjMINH0"></script>
+    <link rel="stylesheet" href="~/assets/css/jquery.mCustomScrollbar.min.css" />
+    <link href="/OwO/OwO.min.css" rel="stylesheet" type="text/css" />
+    <script src="/OwO/OwO.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+    <link rel="stylesheet" href="~/assets/css/custom-themes.css">
+    <link rel="stylesheet" href="~/content/backendstyle.css">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="/content/styles.css" type="text/css">
+    <link rel="shortcut icon" href="/image/icons/favicon.ico?t=2" type="image/x-icon">
+    <link rel="icon" href="/image/icons/favicon.ico?t=2" type="image/x-icon">
+    <link rel="stylesheet" href="/content/memo.css" type="text/css">
+    <link rel="stylesheet" href="/content/paint.css">
+    <style>
+        input, select, textarea {
+            max-width: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="page-wrapper default-theme toggled" id="wrapper">
+        <nav id="sidebar" class="sidebar-wrapper">
+            <div class="sidebar-content">
+                <a href="#" id="toggle-sidebar" style="color:#fff" ><i class="fa fa-bars"></i></a>
+                <div class="sidebar-brand">
+                    <a href="#">打开/关闭资料栏</a>
+                </div>
+                <div class="sidebar-header">
+                    <div class="user-pic">
+                        <img class="img-responsive img-rounded" src="@us.Gravatar" alt="@us.NickName">
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">@us.NickName</span>
+                        <span class="user-role">@us.Role.Name</span>
+                        <div class="user-status">
+                            <a href="#"><span class="label label-success">Online</span></a>
+                        </div>
+                    </div>
+                </div><!-- sidebar-header  -->
+                <div class="sidebar-search">
+                    <div>
+                        <div class="input-group">
+                            <input type="text" class="form-control search-menu" placeholder="Search for...">
+                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        </div>
+                    </div>
+                </div><!-- sidebar-search  -->
+                <div class="sidebar-menu" id="menu">
+                    <ul>
+                        <li class="header-menu"><span>通用</span></li>
+                        <li class="sidebar-dropdown">
+                            <a href="#"><i class="fa fa-dashboard"></i><span>仪表盘</span><span class="label label-danger">New</span></a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li><a href="/BackEnd/pageindex">首页<span class="label label-success">Pro</span></a> </li>
+                                    <li><a href="/BackEnd/About">关于</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#"><i class="fa fa-shopping-cart"></i><span>修改主题</span><span class="badge">1</span></a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li><a href="/backend/changetheme">主题列表<span class="badge">5</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#"><i class="fa fa-edit"></i><span>文章</span></a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li><a href="/backend/postprofile">所有文章</a></li>
+                                    <li><a href="/backend/editpost">新建文章</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#"><i class="fa fa-book"></i><span>日志</span></a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li><a href="/backend/noteprofile">所有日志</a></li>
+                                    <li><a href="#" id="edit-markdown-a">新建文本日志</a></li>
+                                    <li><a href="#" id="edit-canvas-a">新建涂鸦日志</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#"><i class="fa fa-globe"></i><span>我的故乡</span></a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li><a href="/backend/showmaps">百度地图</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="header-menu"><span>管理</span></li>
+                        @if (us.Is_administrator() || us.Is_Moderator()) { 
+                            <li><a href="/backend/commentsprofile"><i class="fa fa-folder"></i><span>所有评论</span></a></li>
+                        }
+                        <li><a href="/backend/userprofile"><i class="fa fa-calendar"></i><span>所有用户</span></a></li>
+                        <li><a id="homepage"><i class="fa fa-apple"></i><span>返回主页</span></a></li>
+                    </ul>
+                </div><!-- sidebar-menu  -->
+            </div><!-- sidebar-content  -->
+
+            <div class="sidebar-footer" id="sig">
+                <a href="#"><i class="fa fa-bell"></i><span class="label label-warning notification">聊天室</span></a>
+                <a href="#"><i class="fa fa-envelope"></i><span class="label label-success notification">7</span></a>
+                <a href="#"><i class="fa fa-gear"></i><span class="badge-sonar"></span></a>
+                <a href="#"><i class="fa fa-power-off"></i></a>
+            </div>
+        </nav><!-- sidebar-wrapper  -->
+        <main class="page-content">
+        <!--这里的id为ct,作为content,使用ajax来动态调整内容-->
+            <div class="container-fluid" id="ybp">
+                <h1>
+                    首页-仪表盘
+                </h1>
+                <p>欢迎使用<strong>来自青工</strong>博客管理系统.</p>
+                <p>祝您使用愉快~</p>
+
+                <div class="panel panel-primary" style="align-content:center;width:200px;color:black">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">个人信息概览</h3>
+                    </div>
+                    <div class="panel-body">
+                        基本信息
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">文章总数: @if(us.Posts!=null){@us.Posts.Count}else{@NIL}</li>
+                        <li class="list-group-item">日志总数: @if(us.Notes!=null){@us.Notes.Count}else{@NIL}</li>
+                        <li class="list-group-item">评论总数: @if (us.Comments != null) { @us.Comments.Count}else{@NIL}</li>
+                    </ul>
+                </div>
+                @RenderBody()
+                <p class="label label-primary" >PS: 圣诞快乐~</p>
+            </div>
+        </main><!-- page-content" -->
+    </div><!-- page-wrapper -->
+    @Html.Partial("_NoteBook")
+    @Html.Partial("_Signal")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        <script src="~/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="~/assets/js/custom.js"></script>
+    <script src="/Scripts/Markdown.Converter.js"> </script>
+    @*<script src="/Scripts/Markdown.Editor.js"> </script>用不到这个*@
+    <script src="/Scripts/Markdown.Sanitizer.js"> </script>
+    @* 上述引入的两个文件的顺序不以交换，因为下面这个文件依赖于上面那个文件 *@
+    <script src="~/scripts/jquery.signalR-2.2.2.js"></script>
+    <script src="~/scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <!-- 本地没有，动态生成 -->
+    <script type="text/javascript">
+    //ASP.NET Signal的初始化方法
+    function Sing() {
+        var $messageBox = $('#message_box');
+        var $textMessage = $('#text_message');
+        var $textName = $('#text_name');
+        //客户端先与服务器连接起来，拿到服务器的代理操作对象
+        var hubConnection = $.connection.chatHub;
+        //注册客户端函数
+        hubConnection.client.receiveMessage = function (name, message) {
+            $messageBox.append('<li><b>' + name + '</b> say:' + message + '</li>')
+        }
+
+        //启动连接到服务器
+        $.connection.hub.start().done(function () {
+            $('#btn_send').bind('click', function () {
+                //调用服务端的函数
+                hubConnection.server.sendMessage($textName.val(), $textMessage.val());
+            });
+        });
+    }
+        //每次通过ajax返回页面后都调用一次tools事件,并在tools事件中在调用tools事件
+        //绑定到分页栏的a标签上,
+        //通过这一事件来绑定新页面的超链接,防止刷新
+        //但注意,其他超链接可以随便跳转的
+        //不然会撑死循环,使dom变得越来越多
+        function tools() {
+            $("#macro a").attr("onclick", "return false;");
+            $("#macro a").click(function () {
+                var url = $(this).attr('href');
+                console.log(url);
+                //如果href是本地,不做处理
+                if (url == "#") { }
+                else {
+                    $.ajax({
+                        type: "get",
+                        dataType: "html",
+                        url: url,
+                        success: function (html) {
+                            $("#ybp").empty();
+                            $("#ybp").html(html);
+                            tools();
+                        }
+                    });
+                }
+            });
+        }
+        //通tools事件中调用tools一样
+        $(document).ready(function () {
+            //为侧边栏所有a标签添加默认实践,阻止刷新
+            $('#menu a').attr("onclick", "return false;");
+            $('#sig a').attr("onclick", "return false;");
+            //重写默认实践,每个标签的href作为ajax后得到的html直接显示在$('#ct')内
+            $("#menu a").click(function () {
+                var url = $(this).attr('href');
+                console.log(url);
+                //如果href是本地,不做处理
+                if (url == "#") {  }
+                else {
+                    $.ajax({
+                        type: "get",
+                        dataType: "html",
+                        url: url,
+                        success: function (html) {
+                            $("#ybp").empty();
+                            $("#ybp").html(html);
+                            tools();
+                        }
+                    });
+                }
+            });
+            $("#homepage").click(function () {
+                window.location="/home";
+            });
+            //因为火狐会出现modal闪退,所以直接绑定事件
+            $('#sig a').click(function () {
+                $('#Signal').modal('show');
+            });
+            $('#edit-markdown-a').click(function () {
+                $('#edit-markdown').modal('show');
+            });
+            $('#edit-canvas-a').click(function () {
+                $('#edit-canvas').modal('show');
+            });
+            Sing();
+        });
+
+        function Oncheck(mealdata) {
+            $("#" + mealdata.id + " input[type=checkbox]").each(function () { console.log(this) });
+        }
+    </script>
+    <script type="text/javascript" src="/Scripts/Snow.js"></script>
+    <script src="/scripts/paint.js"></script>
+    <script src="/scripts/notebook.js"></script>
+</body>
+</html>

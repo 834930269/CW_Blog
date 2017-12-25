@@ -1,0 +1,10 @@
+﻿@using CW_Blog.Models
+@using CW_Blog.Controllers
+@{
+    Layout = null;
+    List<Comment> comment = Model.Items;
+
+    PagingInfo pagi = Model.PagingInfo;
+}
+@Html.Partial("_Comments", comment, new ViewDataDictionary())
+@Html.Partial("_macro", pagi)

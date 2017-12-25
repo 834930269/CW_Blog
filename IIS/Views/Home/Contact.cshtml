@@ -1,0 +1,24 @@
+﻿@using CW_Blog.Controllers
+@using CW_Blog.Models
+@{
+    ViewBag.Title = "联系我们";
+    User Admin = @OP.GetUserIdByEmail("admin@cw.com"),Moder=@OP.GetUserIdByEmail("moder@cw.com");
+}
+<h2>@ViewBag.Title.</h2>
+
+<address>
+    联系管理员<br />
+    <img class="img-rounded" src="@Admin.Gravatar" width="40" height="40" /><br />
+    <abbr title="Link">P:</abbr>
+    <a class="label label-info" href="/home/user_profile/@Admin.UserId">管理员的个人档案</a>
+    <br />
+    联系协管员<br />
+    <img class="img-rounded" src="@Moder.Gravatar" width="40" height="40" /><br />
+    <abbr title="Link">P:</abbr>
+    <a class="label label-info" href="/home/user_profile/@Moder.UserId">协管员的个人档案</a>
+</address>
+
+<address>
+    <strong>Support:</strong>   <a href="mailto:admin@cw.com">admin@cw.com</a><br />
+    <strong>Marketing:</strong> <a href="mailto:moder@cw.com">moder@cw.com</a>
+</address>

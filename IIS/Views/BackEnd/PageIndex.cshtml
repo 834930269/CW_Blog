@@ -1,0 +1,33 @@
+﻿@using CW_Blog.Controllers
+@using CW_Blog.Models
+@{
+    Layout = null;
+    var us = (User)Session["Current_user"];
+    int NIL=0;
+}
+
+<h1>
+    首页-仪表盘
+</h1>
+<p>欢迎使用<strong>来自青工</strong>博客管理系统.</p>
+<p>祝您使用愉快~</p>
+
+<div class="panel panel-primary" style="align-content: center; width: 200px;color:black">
+    <div class="panel-heading">
+        <h3 class="panel-title">个人信息概览</h3>
+    </div>
+    <div class="panel-body">
+        基本信息
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">文章总数: @if (us.Posts != null){@us.Posts.Count}else{@NIL}</li>
+        <li class="list-group-item">日志总数: @if (us.Notes != null)
+        {@us.Notes.Count}
+        else
+        {@NIL}</li>
+        <li class="list-group-item">评论总数: @if (us.Comments != null)
+        { @us.Comments.Count}
+        else
+        {@NIL}</li>
+    </ul>
+</div>

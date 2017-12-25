@@ -1,0 +1,41 @@
+﻿@using CW_Blog.Models
+@{
+    ViewBag.Title = "修改头像";
+    User user = (User)Session["Current_user"];
+}
+
+<h2>编辑用户头像</h2>
+
+<form method="POST" enctype="multipart/form-data" onsubmit="return check_g();" action="/home/Edit_gravatar">
+    <div class="page-header"><h2>展览板~</h2></div>
+    <a class="btn btn-success upload" placeholder="上传头像" id="pkq">
+        <p id="show_gt">选择您要上传的头像~</p>
+        <input class="change" id="photo" name="photo" onchange="c()" placeholder="上传头像" type="file">
+    </a><br />
+    <br><img src="@user.Gravatar" width="256" height="256">
+    <a class="btn btn-success"><-之前 之后-></a>
+    <img src="@user.Gravatar" id='show' width="256" height="256"><br /><br />
+    <input class="btn btn-primary" id="submit" name="submit" value="确认上传" type="submit">
+</form>
+<script type="text/javascript">
+    function c() {
+        var gt = document.getElementById('show_gt');
+        var pkq = document.getElementById('pkq');
+        var r = new FileReader();
+        f = document.getElementById('photo').files[0];
+        pkq.setAttribute('class', 'btn btn-danger upload');
+        gt.innerText = '已选中图片~ 图片名为: ' + f.name;
+        r.readAsDataURL(f);
+        r.onload = function (e) {
+            document.getElementById('show').src = this.result;
+        };
+    }
+    function check_g() {
+        if ($('#photo').val() == "") {
+            Change_Tip("请选择一个图片以上传.");
+            $('#tip').show();
+            return false;
+        }
+        return true;
+    }
+</script>

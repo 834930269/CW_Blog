@@ -1,0 +1,45 @@
+﻿@using CW_Blog.Models;
+@{
+    ViewBag.Title = "管理-修改用户资料";
+    User user=(User)Session["ADMIN_EDIT_USER"];
+}
+
+<h2>编辑用户信息</h2>
+
+<form action="/Home/admin_edit_profile/@user.UserId" method="post">
+    <fieldset>
+        <div class="form-group" onchange="email_exist()" onkeyup="emf(this)">
+            <label>邮箱</label>
+            <input type="text" id="email" name="email" class="form-control" value="@user.Email" required>
+            <span id="helpBlock" class="help-block" style="display:none;">请输入正确的邮箱</span>
+        </div>
+        <div class="form-group">
+            <label>昵称</label>
+            <input type="text" id="nickname" name="nickname" class="form-control" value="@user.NickName" required>
+        </div>
+        <div class="form-group ">
+            <label class="control-label" for="confirmed">邮箱确认</label>
+            <select class="form-control" id="confirmed" name="confirmed">
+                <option value="0">是</option>
+                <option value="1">否</option>
+            </select>
+        </div>
+        <div class="form-group ">
+            <label class="control-label" for="role">权限</label>
+            <select class="form-control" id="role" name="role">
+                <option value="0">管理员</option>
+                <option value="1">协管员</option>
+                <option value="2">普通用户</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>居住地</label>
+            <input type="text" id="location" name="location" class="form-control" value="@user.Location" required>
+        </div>
+        <div class="form-group">
+            <label>关于</label>
+            <textarea id="about_me" name="about_me" class="form-control" required>@user.About_Me</textarea>
+        </div>
+        <button id="Submit" type="submit" class="btn btn-primary">提交</button>
+    </fieldset>
+</form>

@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "修改主题";
+    Layout = null;
+}
+
+    <h1>修改您的模板样式</h1>
+<blockquote>
+    <p>在下面调色方案中选择一个来修改您的主题样式.</p>
+    <div class="alert alert-info" role="alert">请选择一个主题!</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div>
+                <a href="#" id="1" data-theme="default-theme" class="theme default-theme selected"></a>
+                <a href="#" id="2" data-theme="black-theme" class="theme black-theme selected"></a>
+                <a href="#" id="3" data-theme="light-theme" class="theme light-theme"></a>
+                <a href="#" id="4" data-theme="dark-theme" class="theme dark-theme"></a>
+                <a href="#" id="5" data-theme="tree-theme" class="theme tree-theme"></a>
+                <a href="#" id="6" data-theme="purple-theme" class="theme purple-theme"></a>
+            </div>
+        </div>
+    </div>
+</blockquote>
+<p>欢迎使用<strong>来自青工</strong>博客管理系统,我们为您提供了6个模板样式供您自由选择,祝您使用的开心.</p>
+<script>
+    //超暴力写法...
+    $('#1').click(function () {
+        $('#wrapper').attr("class", "page-wrapper default-theme toggled");
+    });
+    $('#2').click(function () {
+        $('#wrapper').attr("class", "page-wrapper black-theme toggled");
+    });
+    $('#3').click(function () {
+        $('#wrapper').attr("class", "page-wrapper light-theme toggled");
+    });
+    $('#4').click(function () {
+        $('#wrapper').attr("class", "page-wrapper dark-theme toggled");
+    });
+    $('#5').click(function () {
+        $('#wrapper').attr("class", "page-wrapper tree-theme toggled");
+    });
+    $('#6').click(function () {
+        $('#wrapper').attr("class", "page-wrapper purple-theme toggled");
+    });
+</script>

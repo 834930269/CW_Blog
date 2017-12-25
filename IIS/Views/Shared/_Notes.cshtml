@@ -1,0 +1,55 @@
+﻿@using CW_Blog.Models
+@using CW_Blog.Controllers
+@{
+    List<Note> nt = Model;
+}
+@if(nt!=null){
+    foreach(Note no in nt){
+	    if(no.NType==1){
+            <div class="memo-container">
+                <div class="memo" data-completed="false" style="height: 345.5px;">
+                    <div class="mark"></div>
+                    <div class="memo-heading">
+                        <h5 class="title">@no.NoteId . @no.Title</h5>
+                        <ul class="tools">
+                            <li class="edit" data-toggle="modal" data-target="#update-markdown" data-id="@no.NoteId" data-title="@no.Title" data-ct="@no.Content_Text" data-category="@no.Category"></li>
+                            <li class="delete"></li>
+                        </ul>
+                    </div>
+                    <h6 class="memo-info">
+                        <span class="timeStamp">@no.Alt_Time.ToString("yyyy-MM-dd HH:mm")
+                        </span>
+                        <span class="category">分类: @no.Category</span>
+                    </h6>
+                    <div class="content" data-type="text" style="height: 262.5px;">
+                        <div class="text">
+                            作者: @no.user.NickName<br />
+                            @Html.Raw(no.Content_Html)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }else if(no.NType==2){
+            <div class="memo-container">
+                <div class="memo" data-completed="false" style="height: 345.5px;">
+                    <div class="mark"></div>
+                    <div class="memo-heading">
+                        <h5 class="title">@no.NoteId . @no.Title</h5>
+                        <ul class="tools">
+                            <li class="edit" data-toggle="modal" data-target="#update-canvas" data-id="@no.NoteId" data-title="@no.Title" data-imgurl="@no.ImgUrl" data-category="@no.Category"></li>
+                            <li class="delete"></li>
+                        </ul>
+                    </div>
+                    <h6 class="memo-info">
+                        <span class="timeStamp">@no.Alt_Time.ToString("yyyy-MM-dd HH:mm")</span>
+                        <span class="category">分类: @no.Category</span>
+                    </h6>
+                    <div class="content" data-type="doodle" style="height: 262.5px;">
+                        作者: @no.user.NickName<br />
+                        <img class="doodle" src="@no.ImgUrl">
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}

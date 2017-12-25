@@ -1,0 +1,14 @@
+﻿@using CW_Blog.Models;
+@using CW_Blog.Controllers;
+@{
+    PostViewModel<Post> po = Model;
+    PagingInfo pagi = Model.PagingInfo;
+    User us=OP.GetCurrentUser();
+}
+<div class="post-tabs">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="/all">全部</a></li>
+    </ul>
+    @Html.Partial("_Posts", po.Items,new ViewDataDictionary())
+</div>
+@Html.Partial("_macro", pagi)

@@ -1,0 +1,44 @@
+﻿@using CW_Blog.Models
+@using CW_Blog.Controllers
+@{
+    ViewBag.Title = "全部日记";
+    PostViewModel<Note> pn = Model;
+    User us=OP.GetCurrentUser();
+}
+@section header{
+<meta charset="utf-8">
+<link rel="stylesheet" href="/content/paint.css">
+    <style>
+        input, select, textarea {
+            max-width: none;
+        }
+    </style>
+}
+<h2>ShowAllNote</h2>
+@section leader{
+    @if (us != null) { 
+        <li class="dropdown">
+            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title='<p style="color:#000">Do Something</p>' data-html="true" data-content='<a data-toggle="modal" data-target="#edit-canvas">涂鸦日志</a><br /><a data-toggle="modal" data-target="#edit-markdown">文本日志</a>'>简·码日志&nbsp;&nbsp;&raquo;</a>
+        </li>
+    }
+    else
+    {
+        <li class="dropdown">
+            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title='<p style="color:#000">Do Something</p>' data-html="true" data-content='<p style="color:#000">登陆以后就可以写日志了哦</p>' >简·码日志&nbsp;&nbsp;&raquo;</a>
+        </li>
+    }
+}
+<div id="memos" style="color:#333;">
+    @Html.Partial("_Notes",pn.Items,new ViewDataDictionary())
+    @Html.Partial("_macro",pn.PagingInfo)
+</div>
+@Html.Partial("_NoteBook")
+@section scripts{
+<script src="/scripts/paint.js"></script>
+<script src="/scripts/notebook.js"></script>
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+</script>
+}

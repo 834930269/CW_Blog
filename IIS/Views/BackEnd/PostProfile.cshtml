@@ -1,0 +1,8 @@
+﻿@using CW_Blog.Models;
+@{
+    Layout = null;
+    ViewBag.Title = "User_Profile";
+    PostViewModel<Post> po = Model;
+}
+@Html.Partial("_Post", po, new ViewDataDictionary())
+

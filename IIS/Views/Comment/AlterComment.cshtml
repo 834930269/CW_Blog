@@ -1,0 +1,43 @@
+﻿@using CW_Blog.Models
+@using CW_Blog.Controllers
+@{
+    ViewBag.Title = "编辑评论";
+    Comment ct = Model;
+    User us = OP.GetCurrentUser();
+}
+
+<h2>编辑文章</h2>
+<form method="post" class="form" role="form" action="/comment/altercomment/@ct.CommentId">
+    <div class="form-group ">
+        <label class="control-label" for="body">文章内容</label>
+        <div class="flask-pagedown"><textarea class="form-control flask-pagedown-input" id="flask-pagedown-body" name="body">@ct.Body</textarea></div>
+        <div class="flask-pagedown-preview" id="flask-pagedown-body-preview"></div>
+        <script type="text/javascript">
+            f = function () {
+                if (typeof flask_pagedown_converter === "undefined")
+                    flask_pagedown_converter = Markdown.getSanitizingConverter().makeHtml;
+                var textarea = document.getElementById("flask-pagedown-body");
+                var preview = document.getElementById("flask-pagedown-body-preview");
+                textarea.onkeyup = function () { preview.innerHTML = flask_pagedown_converter(textarea.value); }
+                textarea.onkeyup.call(textarea);
+            }
+            if (document.readyState === 'complete')
+                f();
+            else if (window.addEventListener)
+                window.addEventListener("load", f, false);
+            else if (window.attachEvent)
+                window.attachEvent("onload", f);
+            else
+                f();
+        </script>
+    </div>
+    <input class="btn btn-default" id="submit" name="submit" type="submit" value="写完了">
+</form>
+
+@section scripts{
+    <script type="text/javascript">
+        $("#footer").removeClass("navbar-fixed-bottom");
+        $("#replace").show();
+        $("#footer2").hide();
+    </script>
+}

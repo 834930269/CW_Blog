@@ -1,0 +1,26 @@
+﻿@using CW_Blog.Models
+@using CW_Blog.Controllers
+@{
+    List<Post> lp=(List<Post>)TempData["lp"];
+    User us = OP.GetCurrentUser();
+    List<Comment> comment = Model.Items;
+    ViewBag.Title = "交流板";
+    PagingInfo pagi=Model.PagingInfo;
+}
+
+<h2>博文板</h2>
+@Html.Partial("_Posts",lp)
+<h4 id="comments">交流区</h4>
+@if (us != null) { 
+<div class="comment-form">
+    <form method="post" class="form" role="form" action="/comment/addcomment/@lp.First().PostId">
+        <div class="form-group ">
+            <label class="control-label" for="body">总想要说点什么~</label>
+            <input class="form-control" id="body" name="body" type="text" required>
+        </div>
+        <input class="btn btn-default" id="submit" name="submit" type="submit" value="提交想法">
+    </form>
+</div>
+}
+@Html.Partial("_Comments", comment, new ViewDataDictionary())
+@Html.Partial("_macro",pagi)

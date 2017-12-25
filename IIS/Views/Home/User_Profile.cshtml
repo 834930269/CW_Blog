@@ -1,0 +1,33 @@
+﻿@using CW_Blog.Models;
+@{
+    ViewBag.Title = "用户资料";
+    User user = (User)ViewData["Show_User"];
+    User c_user = (User)Session["Current_user"];
+    PostViewModel<Post> po = Model;
+}
+
+<div class="page-header">
+    <img class="img-rounded profile-thumbnail" src="@user.Gravatar" width="256" height="256" />
+    <div class="profile-header">
+        <h1>@user.NickName</h1>
+        <p>@user.Email</p>
+        <p>
+            <a href="http://api.map.baidu.com/geocoder?address=@user.Location&output=html&src=yourCompanyName|yourAppName" target="_blank">@user.Location</a>
+        </p>
+        <p>@user.About_Me</p>
+        <p>诞生の日 @user.Member_Since 归乡时间 @((int)(DateTime.Now - user.Last_Seen).TotalMinutes)分钟前.</p>
+        <p>
+            @if (c_user != null) { 
+                if(c_user.UserId==user.UserId){
+                    <a class="btn btn-primary" href="/home/edit_profile">编辑个人档案</a>
+                    <a class="btn btn-success" href="/home/edit_gravatar">修改个人头像</a>
+                }
+                if (c_user.Role.Permission==0xff)
+                { 
+                    <a class="btn btn-danger" href="/home/admin_edit_profile/@user.UserId">编辑档案[管理员]</a>
+                }
+            }
+        </p>
+    </div>
+</div>
+@Html.Partial("_Post", po,new ViewDataDictionary())

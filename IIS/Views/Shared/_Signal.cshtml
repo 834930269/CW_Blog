@@ -1,0 +1,47 @@
+﻿@using CW_Blog.Models
+@using CW_Blog.Controllers
+@{
+    Layout = null;
+    User us = OP.GetCurrentUser();
+}
+<style>
+    #message_box {
+        height: 400px;
+        width: 100%;
+        overflow-y: scroll;
+        background: rgba(0,0,0,1);
+    }
+
+    #box {
+        color: #000;
+    }
+
+    #non {
+        width: 300px;
+        color: #FFF;
+    }
+</style>
+
+<!-- Signal-聊天室 -->
+<div class="modal fade" id="Signal" tabindex="-1" role="dialog" aria-labelledby="Signal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px;">
+            <div class="editor-top ">
+                <label class="control-label" for="body">聊天室:</label>
+                <div class="jumbotron" id="message_box">
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div id="box">
+                        发送者名称:<input id="text_name" class="form-control" value="@us.NickName" /><br />
+                        消息内容:
+                        <textarea id="text_message" class="form-control" rows="3"></textarea>
+                        <br />
+                        <button id="btn_send" class="btn btn-block btn-success">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

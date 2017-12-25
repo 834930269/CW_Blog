@@ -1,0 +1,18 @@
+﻿@using CW_Blog.Models;
+@{
+    var us = (User)Session["Current_user"];
+}
+@if (us!=null)
+{
+        <li><a href="/home/user_profile/@us.UserId">个人档案</a></li>
+        <li>@Html.ActionLink("仪表盘-后台", "Index", "BackEnd")</li>
+        <li><a href="/home/user_profile/@us.UserId">你好 <br/><img class="img-rounded" src="@us.Gravatar" width="25" height="25" /> <br />@us.NickName</a></li>
+        <li><a href="/home/logout">注销</a></li>
+}
+else
+{
+    
+        <li>@Html.ActionLink("注册", "Registe", "Home", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("登录", "Login", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    
+}
