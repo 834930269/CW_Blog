@@ -2,7 +2,8 @@
 ASP搭建的一个博客(部分重构之前python写的博客,大部分新添加的内容):一只划水狗 
 
 
-#  Demo : [http://hsdog.be-sunshine.cn](http://hsdog.be-sunshine.cn) #
+#  Demo : [http://111.230.224.45](http://111.230.224.45) #
+仅供交流用
 
 PS: 因为github免费用户严重限流,所以上传的只是本地release后发布的项目,姑且只能在本地部署.
 
